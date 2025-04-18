@@ -1,0 +1,68 @@
+
+<div class="container mt-4">
+    <div *ngIf="expenseAndCreditMonthYear.length > 0; else noMonthlyData">
+      <mat-toolbar style="display: flex; justify-content: center; font-size: 2.5rem; height: 30;">
+        <span>Monthly Expense & Credit Report</span>
+      </mat-toolbar>
+      
+      <mat-table [dataSource]="expenseAndCreditMonthYear" class="mat-elevation-z8 mt-3">
+        <ng-container matColumnDef="monthYear">
+          <mat-header-cell *matHeaderCellDef> Month & Year </mat-header-cell>
+          <mat-cell *matCellDef="let item"> {{ item.monthYear }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalExpense">
+          <mat-header-cell *matHeaderCellDef> Total Expense </mat-header-cell>
+          <mat-cell *matCellDef="let item"> {{ item.totalExpense | currency:'INR' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalCredit">
+          <mat-header-cell *matHeaderCellDef> Total Credit </mat-header-cell>
+          <mat-cell *matCellDef="let item"> {{ item.totalCredit | currency:'INR' }} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalBalance">
+          <mat-header-cell *matHeaderCellDef> Total Balance </mat-header-cell>
+          <mat-cell *matCellDef="let item"> {{ item.totalCredit - item.totalExpense | currency:'INR' }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['monthYear', 'totalExpense', 'totalCredit', 'totalBalance']"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ['monthYear', 'totalExpense', 'totalCredit', 'totalBalance'];"></mat-row>
+      </mat-table>
+      
+      <mat-table [dataSource]="[{}]" class="mat-elevation-z8 mt-3">
+        <ng-container matColumnDef="totalLabel">
+          <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+          <mat-cell *matCellDef="let element"> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalExpense">
+          <mat-header-cell *matHeaderCellDef> {{ totalExpense | currency:'INR' }} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalCredit">
+          <mat-header-cell *matHeaderCellDef> {{ totalCredit | currency:'INR' }} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="totalBalance">
+          <mat-header-cell *matHeaderCellDef> {{ totalCredit - totalExpense | currency:'INR' }} </mat-header-cell>
+          <mat-cell *matCellDef="let element"> </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="['totalLabel', 'totalExpense', 'totalCredit', 'totalBalance']"></mat-header-row>
+      </mat-table>
+    </div>
+    <div>
+      <canvasjs-chart [options]="chartOptions" [styles]="{width: '100%', height:'360px'}"></canvasjs-chart>    
+  </div>
+
+    <ng-template #noMonthlyData>
+      <mat-card class="mat-elevation-z4">
+        <mat-card-content class="text-center">
+          No monthly expense data found.
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+  </div>

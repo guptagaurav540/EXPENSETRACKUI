@@ -20,14 +20,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { HeaderComponentComponent } from './header-component/header-component.component';
 import { MatCardModule } from '@angular/material/card';
-
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MonthlyDetailsComponent } from './monthly-details/monthly-details.component';
 @NgModule({
   declarations: [
     AppComponent,
     ExpenseTableComponentComponent,
     ExpenseReportComponent,
-    HeaderComponentComponent
+    HeaderComponentComponent,
+    MonthlyDetailsComponent
     
   ],
   imports: [
@@ -46,7 +50,11 @@ import { MatCardModule } from '@angular/material/card';
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatPaginatorModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

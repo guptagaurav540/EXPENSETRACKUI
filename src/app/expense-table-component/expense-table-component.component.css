@@ -1,0 +1,13 @@
+.filter-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .submit-button {
+    /* grid-column: span 2;  */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Ensures vertical alignment */
+    margin-top: 20px; /* Adds spacing above the button */
+  }

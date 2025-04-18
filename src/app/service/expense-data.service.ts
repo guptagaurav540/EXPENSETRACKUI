@@ -12,4 +12,7 @@ export class ExpenseDataService {
   setExpenses(expenses: Expense[]): void {
     this.expensesSource.next(expenses); // Update the expenses
   }
+  getExpenses(): Expense[] {
+    return this.expensesSource.getValue(); // Get the current value of expenses
+  }
 }
