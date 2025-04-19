@@ -10,6 +10,7 @@ import { ExpenseDataService } from '../service/expense-data.service'; // Import 
 })
 export class ExpenseReportComponent implements OnInit {
   expenses: Expense[] = [];
+  chartOptions: any;
   expenseArray: { category: string; totalWid: number;totalCredit: number }[] = []; // Array for HTML binding
   // creditedAmountArray:{ category: string; total: number }[] = [];
   totalExpense = 0;
@@ -26,6 +27,7 @@ export class ExpenseReportComponent implements OnInit {
       this.totalExpense=0;
       this.totalCredit=0;
       this.groupExpensesByCategory(); 
+      this.updateChartOptions(); // Update chart options after grouping
     });
   }
 
@@ -46,6 +48,7 @@ export class ExpenseReportComponent implements OnInit {
     ];
     const expenseMap: { [key: string]: number } = {};
     const creditedAmountMap: { [key: string]: number } = {};
+    
   
     // Initialize all predefined categories with a total of 0
     predefinedCategories.forEach((category) => {
@@ -78,4 +81,32 @@ export class ExpenseReportComponent implements OnInit {
     
   }
 
+  updateChartOptions(): void {
+    // Update chart options using the expenseMap
+    this.chartOptions = {
+      title: {
+        text: "Expenses by Category"
+      },
+      animationEnabled: true,
+      axisY: {
+        includeZero: true,
+        prefix: "₹", // Currency prefix
+        title: "Amount"
+      },
+      axisX: {
+        title: "Categories"
+      },
+      data: [
+        {
+          type: "bar",
+          indexLabel: "{y}",
+          yValueFormatString: "₹#,###",
+          dataPoints: this.expenseArray.map((expense) => ({
+            label: expense.category,
+            y: expense.totalWid // Use totalWid for data points
+          }))
+        }
+      ]
+    };
+  }
 }
