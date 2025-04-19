@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+
 import { MonthlyDetailsComponent } from './monthly-details/monthly-details.component';
 @NgModule({
   declarations: [
@@ -32,7 +34,6 @@ import { MonthlyDetailsComponent } from './monthly-details/monthly-details.compo
     ExpenseReportComponent,
     HeaderComponentComponent,
     MonthlyDetailsComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -54,9 +55,11 @@ import { MonthlyDetailsComponent } from './monthly-details/monthly-details.compo
     MatIconModule,
     MatMenuModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    CanvasJSAngularChartsModule
   ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
