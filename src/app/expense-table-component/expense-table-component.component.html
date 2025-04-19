@@ -1,132 +1,76 @@
-
 <div *ngIf="loading" class="text-center">
-    <div class="spinner-border text-primary" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
   </div>
-  
-  <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  
-  
- 
-  </div>
-   <!-- filter Select  -->
-  <div>
-    <form (ngSubmit)="onSubmit()" #expenseFilterForm="ngForm" class="d-flex align-items-center gap-3">
-      <!-- Start Date -->
-      <mat-form-field appearance="fill" class="flex-grow-1">
-        <mat-label>Start Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="startDatePicker"
-          [(ngModel)]="filterDto.startDate"
-          name="startDate"
-          required
-        />
-        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #startDatePicker startView="month" panelClass="custom-datepicker"></mat-datepicker>
-      </mat-form-field>
+</div>
 
-      <!-- End Date -->
-      <mat-form-field appearance="fill" class="flex-grow-1">
-        <mat-label>End Date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="endDatePicker"
-          [(ngModel)]="filterDto.endDate"
-          name="endDate"
-          required
-        />
-        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-        <mat-datepicker #endDatePicker startView="month" panelClass="custom-datepicker"></mat-datepicker>
-      </mat-form-field>
-
-      <!-- Category -->
-      <mat-form-field appearance="fill" class="flex-grow-1">
-        <mat-label>Category</mat-label>
-        <mat-select
-          [(ngModel)]="filterDto.category"
-          name="category"
-          multiple
-        >
-          <mat-option
-            *ngFor="let cat of ['Grocery Delivery', 'Food Delivery', 'Online Shopping', 'Salary Credited', 'Home Expense', 'Bank Transfer', 'Online Payment','Credit Card','Stocks','Other']"
-            [value]="cat"
-          >
-            {{ cat }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <!-- Submit Button -->
-      <button type="submit" mat-raised-button color="primary" class="flex-grow-1" >
-        Filter
-      </button>
+<div *ngIf="errorMessage" class="alert alert-danger">
+  {{ errorMessage }}
 
 
-    </form>
-    <br>
-  </div>
+
+</div>
+<!-- filter Select  -->
+<mat-toolbar style="display: flex; justify-content: center; font-size: 2.5rem; height: 10;">
+  <span>Expense Detail</span>
+</mat-toolbar>
+  
 
 
-  <div *ngIf="!loading && expenses.length > 0; else loadingTemplate">
-    <!-- Angular Material Table -->
-    <table mat-table [dataSource]="paginatedExpenses" class="mat-elevation-z8 w-100">
-      <!-- Transaction ID Column -->
-      <ng-container matColumnDef="transactionId">
-        <th mat-header-cell *matHeaderCellDef> Transaction ID </th>
-        <td mat-cell *matCellDef="let expense"> {{ expense.transactionId }} </td>
-      </ng-container>
-  
-      <!-- Transaction Date Column -->
-      <ng-container matColumnDef="valueDate">
-        <th mat-header-cell *matHeaderCellDef> Transaction Date </th>
-        <td mat-cell *matCellDef="let expense"> {{ expense.valueDate | date: 'mediumDate' }} </td>
-      </ng-container>
-  
-      <!-- Remark Column -->
-      <ng-container matColumnDef="remark">
-        <th mat-header-cell *matHeaderCellDef> Remark </th>
-        <td mat-cell *matCellDef="let expense"> {{ expense.remark }} </td>
-      </ng-container>
-  
-      <!-- Withdrawal Amount Column -->
-      <ng-container matColumnDef="withdrawalAmount">
-        <th mat-header-cell *matHeaderCellDef> Withdrawal Amount </th>
-        <td mat-cell *matCellDef="let expense" class="text-danger">
-          {{ expense.withdrawalAmount | currency:'INR' }}
-        </td>
-      </ng-container>
-  
-      <!-- Deposit Amount Column -->
-      <ng-container matColumnDef="depositAmount">
-        <th mat-header-cell *matHeaderCellDef> Deposit Amount </th>
-        <td mat-cell *matCellDef="let expense" class="text-success">
-          {{ expense.depositAmount | currency:'INR' }}
-        </td>
-      </ng-container>
-  
-      <!-- Category Column -->
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef> Category </th>
-        <td mat-cell *matCellDef="let expense"> {{ expense.category }} </td>
-      </ng-container>
-  
-      <!-- Header and Row Definitions -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <!-- Angular Material Paginator -->
-    <mat-paginator
-      [length]="expenses.length"
-      [pageSize]="pageSize"
-      [pageSizeOptions]="[10, 20]"
-      (page)="onPageChange($event)">
-    </mat-paginator>
-  </div>
-  
+<div>
+  <!-- Angular Material Table -->
+  <table mat-table [dataSource]="paginatedExpenses" class="mat-elevation-z8 w-100">
+    <!-- Transaction ID Column -->
+    <ng-container matColumnDef="transactionId">
+      <th mat-header-cell *matHeaderCellDef> Transaction ID </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.transactionId }} </td>
+    </ng-container>
+
+    <!-- Transaction Date Column -->
+    <ng-container matColumnDef="valueDate">
+      <th mat-header-cell *matHeaderCellDef> Transaction Date </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.valueDate | date: 'mediumDate' }} </td>
+    </ng-container>
+
+    <!-- Remark Column -->
+    <ng-container matColumnDef="remark">
+      <th mat-header-cell *matHeaderCellDef> Remark </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.remark }} </td>
+    </ng-container>
+
+    <!-- Withdrawal Amount Column -->
+    <ng-container matColumnDef="withdrawalAmount">
+      <th mat-header-cell *matHeaderCellDef> Withdrawal Amount </th>
+      <td mat-cell *matCellDef="let expense" class="text-danger">
+        {{ expense.withdrawalAmount | currency:'INR' }}
+      </td>
+    </ng-container>
+
+    <!-- Deposit Amount Column -->
+    <ng-container matColumnDef="depositAmount">
+      <th mat-header-cell *matHeaderCellDef> Deposit Amount </th>
+      <td mat-cell *matCellDef="let expense" class="text-success">
+        {{ expense.depositAmount | currency:'INR' }}
+      </td>
+    </ng-container>
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef> Category </th>
+      <td mat-cell *matCellDef="let expense"> {{ expense.category }} </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Angular Material Paginator -->
+  <mat-paginator [length]="expenses.length" [pageSize]="pageSize" [pageSizeOptions]="[10, 20]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+
 <!-- Spinner Template -->
 <ng-template #loadingTemplate>
   <div class="loading-container">
@@ -134,7 +78,3 @@
     <p>Loading expenses...</p>
   </div>
 </ng-template>
-  
-
-
-

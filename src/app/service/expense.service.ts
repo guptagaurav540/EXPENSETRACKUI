@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Expense } from '../models/expense.model';
 import { AppConfig } from '../app.config';
 
+
 interface ApiResponse {
   status: number;
   message: string;
@@ -41,6 +42,6 @@ export class ExpenseService {
   };
 
   console.log('API Filter:', apiFilter); // Deb
-    return this.http.post<ApiResponse>("http://localhost:8080/getAllExpensesBasedOnFilter", apiFilter);
+    return this.http.post<ApiResponse>(this.apiUrl+"/getAllExpensesBasedOnFilter", apiFilter);
   }
 }
